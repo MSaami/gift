@@ -2,17 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('Api')->prefix('api')->group(function() {
+    Route::resource('codes', 'CodeController')->only(['index', 'show', 'store', 'update']);
+    Route::resource('competitions', 'CompetitionController')->only(['store']);
+    Route::post('winners/has-won', 'WinnerController@hasWon')->name('api.winners.hasWon');
+    Route::resource('codes.winners', 'WinnerController')->only(['index']);
 });
