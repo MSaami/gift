@@ -25,7 +25,7 @@ class CompetitionRequest extends FormRequest
     {
         return [
             'code' => ['required', 'exists:codes,code'],
-            'mobile' => ['required']
+            'mobile' => ['required', 'regex:/^(\+98|0)?9\d{9}$/']
         ];
     }
 }

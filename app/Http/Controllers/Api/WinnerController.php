@@ -17,16 +17,4 @@ class WinnerController extends BaseController
 
         return $this->respond(new WinnerCollection($winners));
     }
-
-    public function hasWon(CompetitionRequest $request)
-    {
-        $code = Code::firstWhere('code', $request->code);
-
-        $winner = $code->filterWinnerBy($request->mobile);
-
-        return $this->respond([
-            'result' => $winner->isNotEmpty(),
-            'winner' => $winner
-        ]);
-    }
 }

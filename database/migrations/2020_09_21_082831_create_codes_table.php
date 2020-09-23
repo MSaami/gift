@@ -15,7 +15,7 @@ class CreateCodesTable extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->char('code', 50);
+            $table->char('code', 50)->unique();
             $table->unsignedSmallInteger('remaining');
             $table->boolean('is_active')->default(true);
             $table->timestamps();

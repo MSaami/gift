@@ -11,7 +11,8 @@ class BaseCollection extends ResourceCollection
         return [
             'last_page' => $this->lastPage(),
             'current_page' => $this->currentPage(),
-            'per_page' => $this->perPage()
+            'per_page' => $this->perPage(),
+            'total' => $this->total()
         ];
     }
 }
