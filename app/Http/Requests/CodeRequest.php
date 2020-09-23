@@ -24,7 +24,7 @@ class CodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => ['required', 'string'],
+            'code' => ['required', 'string', 'regex:/^[A-Za-z0-9_]+$/', 'unique:codes,code'],
             'remaining' => ['required', 'integer']
         ];
     }

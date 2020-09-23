@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 
 class WinnerController extends BaseController
 {
-    public function index(Request $request, $code)
+    public function index(Request $request)
     {
-        $perPage = $request->per_page ?? $this->perPage;
-
-        $winners = Winner::where('code_id', $code)->with('code')->orderByDate()->paginate($perPage);
+        $winners = Winner::with('code')->filter($request->all());
 
         return $this->respond(new WinnerCollection($winners));
     }
@@ -24,6 +22,11 @@ class WinnerController extends BaseController
     {
         $code = Code::firstWhere('code', $request->code);
 
-        return $this->respond(['data' => $code->alreadyWinBy($request->mobile)]);
+        $winner = $code->filterWinnerBy($request->mobile);
+
+        return $this->respond([
+            'result' => $winner->isNotEmpty(),
+            'winner' => $winner
+        ]);
     }
 }

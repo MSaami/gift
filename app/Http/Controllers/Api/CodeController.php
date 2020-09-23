@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CodeRequest;
+use App\Http\Requests\CodeUpdateRequest;
 use App\Http\Resources\CodeCollection;
 use App\Http\Resources\CodeResource;
 use App\Models\Code;
@@ -13,9 +14,8 @@ class CodeController extends BaseController
 
     public function index(Request $request)
     {
-        $perPage = $request->per_page ?? $this->perPage;
 
-        $codes = Code::orderByDate()->paginate($perPage);
+        $codes = Code::filter($request->all());
 
         return $this->respond(new CodeCollection($codes));
     }
@@ -39,7 +39,7 @@ class CodeController extends BaseController
         return $this->respond(new CodeResource($code));
     }
 
-    public function update(CodeRequest $request, Code $code)
+    public function update(CodeUpdateRequest $request, Code $code)
     {
         try{
             $code->update($request->only(['code', 'remaining', 'is_active']));

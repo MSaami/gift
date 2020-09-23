@@ -56,7 +56,7 @@ class BaseController extends Controller
     private function respondWithError($message)
     {
         return $this->respond([
-            'error' => [
+            'errors' => [
                 'message'     => $message,
                 'status_code' => $this->getStatusCode(),
             ],

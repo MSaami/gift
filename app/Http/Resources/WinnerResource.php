@@ -11,8 +11,9 @@ class WinnerResource extends JsonResource
         return [
             'id' => $this->id,
             'mobile' => $this->mobile,
-            'code' => $this->code,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'code' => $this->code->code,
+            'jalali_created_at' => $this->jalali_created_at
         ];
     }
 }
